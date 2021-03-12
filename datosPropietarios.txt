@@ -1,0 +1,12 @@
+Juan
+Perez
+100
+Pedro
+Sam
+110
+Mario
+Suarez
+120
+Alex
+Morales
+130
