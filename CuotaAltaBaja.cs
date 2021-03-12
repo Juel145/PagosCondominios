@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace PagosCondominios
 {
-    class ConteoPropiedades
+    class CuotaAltaBaja
     {
         string nombre;
         string apellido;
-        int conteo;
-        float suma;
+        string numeroCasa;
+        float cuotaMatenimiento;
 
         public string Nombre { get => nombre; set => nombre = value; }
         public string Apellido { get => apellido; set => apellido = value; }
-        public int Conteo { get => conteo; set => conteo = value; }
-        public float Suma { get => suma; set => suma = value; }
+        public string NumeroCasa { get => numeroCasa; set => numeroCasa = value; }
+        public float CuotaMatenimiento { get => cuotaMatenimiento; set => cuotaMatenimiento = value; }
     }
 }

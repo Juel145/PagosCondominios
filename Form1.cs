@@ -17,6 +17,7 @@ namespace PagosCondominios
         List<DatosPropiedades> datosPropiedades = new List<DatosPropiedades>();
         List<DatosPropietario> datosPropietarios = new List<DatosPropietario>();
         List<ConteoPropiedades> conteoPropiedades = new List<ConteoPropiedades>();
+        List<CuotaAltaBaja> cuotaAltaBajas = new List<CuotaAltaBaja>();
         public Form1()
         {
             InitializeComponent();
@@ -67,6 +68,12 @@ namespace PagosCondominios
             dataGridViewGeneral.DataSource = datosGenerales;
             dataGridViewGeneral.Refresh();
         }
+        void MostrarAltasBajas()
+        {
+            dataGridViewCuotasAltaBajas.DataSource = null;
+            dataGridViewCuotasAltaBajas.DataSource = cuotaAltaBajas;
+            dataGridViewCuotasAltaBajas.Refresh();
+        }
 
         private void buttonOrdenarCuota_Click(object sender, EventArgs e)
         {
@@ -98,11 +105,13 @@ namespace PagosCondominios
                             conteoPropiedadesTemp.Nombre = datosPropietarios[x].Nombre;
                             conteoPropiedadesTemp.Apellido = datosPropietarios[x].Apellido;
                             conteoPropiedadesTemp.Conteo = 1;
+                            conteoPropiedadesTemp.Suma = datosPropiedades[y].CuotaMantenimiento;
                             conteoPropiedades.Add(conteoPropiedadesTemp);
                         }
                         else
                         {
                             conteoPropiedades[x].Conteo = conteoPropiedades[x].Conteo + 1;
+                            conteoPropiedades[x].Suma = conteoPropiedades[x].Suma + datosPropiedades[y].CuotaMantenimiento;
                         }
                         datosGenerales.Add(datosGeneralesTemp);
                         
@@ -121,11 +130,46 @@ namespace PagosCondominios
             labelApellido.Text = conteoPropiedades[0].Apellido;
             labelNumeroPropiedades.Text = conteoPropiedades[0].Conteo.ToString();
       
-    }
+        }
 
         private void buttonMasAltas_Click(object sender, EventArgs e)
         {
+            cuotaAltaBajas.Clear();
+            datosGenerales = datosGenerales.OrderByDescending(p => p.CuotaMatenimiento).ToList();
+            for (int x = 0; x<3;x++)
+            {
+                CuotaAltaBaja cuotaAltaBajaTemp = new CuotaAltaBaja();
+                cuotaAltaBajaTemp.Nombre = datosGenerales[x].Nombre;
+                cuotaAltaBajaTemp.Apellido = datosGenerales[x].Apellido;
+                cuotaAltaBajaTemp.NumeroCasa = datosGenerales[x].NumeroCasa;
+                cuotaAltaBajaTemp.CuotaMatenimiento = datosGenerales[x].CuotaMatenimiento;
+                cuotaAltaBajas.Add(cuotaAltaBajaTemp);
+            }
+            MostrarAltasBajas();
+        }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            conteoPropiedades = conteoPropiedades.OrderByDescending(p => p.Suma).ToList();
+            labelNombreTotal.Text = conteoPropiedades[0].Nombre;
+            labelApellidoTotal.Text = conteoPropiedades[0].Apellido;
+            labelCuotaTotal.Text = conteoPropiedades[0].Suma.ToString();
+        }
+
+        private void buttonMasBajas_Click(object sender, EventArgs e)
+        {
+            cuotaAltaBajas.Clear();
+            datosGenerales = datosGenerales.OrderBy(p => p.CuotaMatenimiento).ToList();
+            for (int x = 0; x < 3; x++)
+            {
+                CuotaAltaBaja cuotaAltaBajaTemp = new CuotaAltaBaja();
+                cuotaAltaBajaTemp.Nombre = datosGenerales[x].Nombre;
+                cuotaAltaBajaTemp.Apellido = datosGenerales[x].Apellido;
+                cuotaAltaBajaTemp.NumeroCasa = datosGenerales[x].NumeroCasa;
+                cuotaAltaBajaTemp.CuotaMatenimiento = datosGenerales[x].CuotaMatenimiento;
+                cuotaAltaBajas.Add(cuotaAltaBajaTemp);
+            }
+            MostrarAltasBajas();
         }
     }
 }

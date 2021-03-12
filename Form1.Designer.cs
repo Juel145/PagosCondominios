@@ -160,6 +160,7 @@ namespace PagosCondominios
             this.buttonMasBajas.TabIndex = 11;
             this.buttonMasBajas.Text = "Cuotas Mas Bajas";
             this.buttonMasBajas.UseVisualStyleBackColor = true;
+            this.buttonMasBajas.Click += new System.EventHandler(this.buttonMasBajas_Click);
             // 
             // button1
             // 
@@ -169,6 +170,7 @@ namespace PagosCondominios
             this.button1.TabIndex = 12;
             this.button1.Text = "Propietario Con La Cuota Mas Alta En Total";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label4
             // 
