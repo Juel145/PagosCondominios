@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConteoPropiedades.cs" />
     <Compile Include="DatosGenerales.cs" />
     <Compile Include="DatosPropiedades.cs" />
     <Compile Include="DatosPropietario.cs" />

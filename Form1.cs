@@ -16,6 +16,7 @@ namespace PagosCondominios
         List<DatosGenerales> datosGenerales = new List<DatosGenerales>();
         List<DatosPropiedades> datosPropiedades = new List<DatosPropiedades>();
         List<DatosPropietario> datosPropietarios = new List<DatosPropietario>();
+        List<ConteoPropiedades> conteoPropiedades = new List<ConteoPropiedades>();
         public Form1()
         {
             InitializeComponent();
@@ -39,6 +40,7 @@ namespace PagosCondominios
             reader.Close();
 
         }
+       
         void LeerPropiedades()
         {
             FileStream stream = new FileStream("datosPropiedades.txt", FileMode.Open, FileAccess.Read);
@@ -65,8 +67,11 @@ namespace PagosCondominios
             dataGridViewGeneral.DataSource = datosGenerales;
             dataGridViewGeneral.Refresh();
         }
+
         private void buttonOrdenarCuota_Click(object sender, EventArgs e)
         {
+            datosGenerales = datosGenerales.OrderByDescending(p => p.CuotaMatenimiento).ToList();
+            Mostrar();
 
         }
 
@@ -74,23 +79,53 @@ namespace PagosCondominios
         {
             LeerPropiedades();
             LeerPropietarios();
+                        
             for (int x = 0; x < datosPropietarios.Count; x++)
             {
                for (int y = 0; y < datosPropiedades.Count; y++)
                 {
                  if (datosPropietarios[x].Dpi== datosPropiedades[y].Dpi)
                     {
+                        
                         DatosGenerales datosGeneralesTemp = new DatosGenerales();
                         datosGeneralesTemp.Nombre = datosPropietarios[x].Nombre;
                         datosGeneralesTemp.Apellido = datosPropietarios[x].Apellido;
                         datosGeneralesTemp.NumeroCasa = datosPropiedades[y].NumeroCasa;
                         datosGeneralesTemp.CuotaMatenimiento = datosPropiedades[y].CuotaMantenimiento;
+                        if (conteoPropiedades.Exists(p => p.Nombre == datosPropietarios[x].Nombre) == false)
+                        {
+                            ConteoPropiedades conteoPropiedadesTemp = new ConteoPropiedades();
+                            conteoPropiedadesTemp.Nombre = datosPropietarios[x].Nombre;
+                            conteoPropiedadesTemp.Apellido = datosPropietarios[x].Apellido;
+                            conteoPropiedadesTemp.Conteo = 1;
+                            conteoPropiedades.Add(conteoPropiedadesTemp);
+                        }
+                        else
+                        {
+                            conteoPropiedades[x].Conteo = conteoPropiedades[x].Conteo + 1;
+                        }
                         datosGenerales.Add(datosGeneralesTemp);
+                        
                     }
                                                         
                  }
             }
+            
             Mostrar();
+        }
+
+        private void buttonMasPropiedade_Click(object sender, EventArgs e)
+        {
+            conteoPropiedades = conteoPropiedades.OrderByDescending(p => p.Conteo).ToList();
+            labelNombre.Text = conteoPropiedades[0].Nombre;
+            labelApellido.Text = conteoPropiedades[0].Apellido;
+            labelNumeroPropiedades.Text = conteoPropiedades[0].Conteo.ToString();
+      
+    }
+
+        private void buttonMasAltas_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

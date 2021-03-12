@@ -78,6 +78,7 @@ namespace PagosCondominios
             this.buttonMasPropiedade.TabIndex = 2;
             this.buttonMasPropiedade.Text = "Mostrar Propietario con Mas Propiedades";
             this.buttonMasPropiedade.UseVisualStyleBackColor = true;
+            this.buttonMasPropiedade.Click += new System.EventHandler(this.buttonMasPropiedade_Click);
             // 
             // label1
             // 
@@ -149,6 +150,7 @@ namespace PagosCondominios
             this.buttonMasAltas.TabIndex = 10;
             this.buttonMasAltas.Text = "Cuotas Mas Altas";
             this.buttonMasAltas.UseVisualStyleBackColor = true;
+            this.buttonMasAltas.Click += new System.EventHandler(this.buttonMasAltas_Click);
             // 
             // buttonMasBajas
             // 
